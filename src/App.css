@@ -1,0 +1,24 @@
+
+.Quotes{
+  text-align: center;
+  color: crimson;
+  font-style:italic;
+}
+.Heading{
+  text-align: center;
+  color: darkmagenta;
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+  
+}
+.Button{
+  align-content: center;
+}
+.btn{
+  mask-type: alpha;
+  border-top-style: groove;
+  background-color: rgb(198, 235, 198);
+  text-emphasis-color: red;
+  border-radius: 12px;
+
+}
