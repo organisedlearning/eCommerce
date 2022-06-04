@@ -1,11 +1,10 @@
 import React from "react";
+import Dashboard from "./component/pages/Dashboard";
 
 function App() {
 	return (
-		<div className="bg-green-500">
-			<h1 className="text-red-500 font-semi-bold">
-				hello
-			</h1>
+		<div>
+			<Dashboard />
 		</div>
 	);
 }
