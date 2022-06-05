@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import Product from "./Product";
+import ProductList from "./ProductList";
+// import Product from "./Product";
+import { FaShoppingCart } from "react-icons/fa";
 function Dashboard() {
 	const [open, setOpen] = useState(false);
 	return (
@@ -35,7 +37,7 @@ function Dashboard() {
 									>
 										Dashboard
 									</a>
-									<Product />
+									{/* <Product /> */}
 									<a
 										href="#"
 										className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -77,7 +79,18 @@ function Dashboard() {
 										notifications
 									</span>
 									{/* <!-- Heroicon name: outline/bell --> */}
-									<svg
+									<div className="relative">
+										<FaShoppingCart
+											size={
+												20
+											}
+											className="text-white"
+										/>
+										<span className="inline-flex absolute bottom-4 items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+											1
+										</span>
+									</div>
+									{/* <svg
 										className="h-6 w-6"
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -91,7 +104,7 @@ function Dashboard() {
 											stroke-linejoin="round"
 											d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
 										/>
-									</svg>
+									</svg> */}
 								</button>
 
 								{/* <!-- Profile dropdown --> */}
@@ -103,6 +116,11 @@ function Dashboard() {
 											id="user-menu-button"
 											aria-expanded="false"
 											aria-haspopup="true"
+											onClick={() =>
+												setOpen(
+													!open,
+												)
+											}
 										>
 											<span className="sr-only">
 												Open
@@ -127,46 +145,51 @@ function Dashboard() {
                   From: "transform opacity-100 scale-100"
                   To: "transform opacity-0 scale-95"
               --> */}
-									<div
-										className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-										role="menu"
-										aria-orientation="vertical"
-										aria-labelledby="user-menu-button"
-										tabindex="-1"
-									>
-										{/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
-										<a
-											href="#"
-											className="block px-4 py-2 text-sm text-gray-700"
-											role="menuitem"
-											tabindex="-1"
-											id="user-menu-item-0"
+									{open ==
+										true && (
+										<div
+											className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+											role="menu"
+											aria-orientation="vertical"
+											aria-labelledby="user-menu-button"
+											tabIndex={
+												-1
+											}
 										>
-											Your
-											Profile
-										</a>
+											{/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
+											<a
+												href="#"
+												className="block px-4 py-2 text-sm text-gray-700"
+												role="menuitem"
+												tabindex="-1"
+												id="user-menu-item-0"
+											>
+												Your
+												Profile
+											</a>
 
-										<a
-											href="#"
-											className="block px-4 py-2 text-sm text-gray-700"
-											role="menuitem"
-											tabindex="-1"
-											id="user-menu-item-1"
-										>
-											Settings
-										</a>
+											<a
+												href="#"
+												className="block px-4 py-2 text-sm text-gray-700"
+												role="menuitem"
+												tabindex="-1"
+												id="user-menu-item-1"
+											>
+												Settings
+											</a>
 
-										<a
-											href="#"
-											className="block px-4 py-2 text-sm text-gray-700"
-											role="menuitem"
-											tabindex="-1"
-											id="user-menu-item-2"
-										>
-											Sign
-											out
-										</a>
-									</div>
+											<a
+												href="#"
+												className="block px-4 py-2 text-sm text-gray-700"
+												role="menuitem"
+												tabindex="-1"
+												id="user-menu-item-2"
+											>
+												Sign
+												out
+											</a>
+										</div>
+									)}
 								</div>
 							</div>
 						</div>
@@ -355,7 +378,7 @@ function Dashboard() {
 					{/* <!-- Replace with your content --> */}
 					<div className="px-4 py-6 sm:px-0">
 						<div className="border-4 border-dashed border-gray-200 rounded-lg h-96">
-							<Product />
+							<ProductList />
 						</div>
 					</div>
 					{/* <!-- /End replace --> */}
