@@ -2,9 +2,15 @@ import React from "react";
 import { useState } from "react";
 import ProductList from "./ProductList";
 // import Product from "./Product";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaAmazon } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 function Dashboard() {
 	const [open, setOpen] = useState(false);
+	const cart = useSelector((state) => {
+		return state.cart.cart;
+	});
 	return (
 		//  <!-- This example requires Tailwind CSS v2.0+ -->
 		// <!--
@@ -21,10 +27,15 @@ function Dashboard() {
 					<div className="flex items-center justify-between h-16">
 						<div className="flex items-center">
 							<div className="flex-shrink-0">
-								<img
+								{/* <img
 									className="h-8 w-8"
 									src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
 									alt="Workflow"
+								/> */}
+
+								<FaAmazon
+									size={30}
+									className="text-white  bg-transparent"
 								/>
 							</div>
 							<div className="hidden md:block">
@@ -75,19 +86,20 @@ function Dashboard() {
 									className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 								>
 									<span className="sr-only">
-										View
-										notifications
+										View notifications
 									</span>
 									{/* <!-- Heroicon name: outline/bell --> */}
 									<div className="relative">
-										<FaShoppingCart
-											size={
-												20
-											}
-											className="text-white"
-										/>
+										<Link to={"/cart"}>
+											<FaShoppingCart
+												size={20}
+												className="text-white"
+											/>
+										</Link>
 										<span className="inline-flex absolute bottom-4 items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-											1
+											{cart !== undefined
+												? cart.length
+												: 0}
 										</span>
 									</div>
 									{/* <svg
@@ -117,15 +129,11 @@ function Dashboard() {
 											aria-expanded="false"
 											aria-haspopup="true"
 											onClick={() =>
-												setOpen(
-													!open,
-												)
+												setOpen(!open)
 											}
 										>
 											<span className="sr-only">
-												Open
-												user
-												menu
+												Open user menu
 											</span>
 											<img
 												className="h-8 w-8 rounded-full"
@@ -145,16 +153,13 @@ function Dashboard() {
                   From: "transform opacity-100 scale-100"
                   To: "transform opacity-0 scale-95"
               --> */}
-									{open ==
-										true && (
+									{open == true && (
 										<div
 											className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
 											role="menu"
 											aria-orientation="vertical"
 											aria-labelledby="user-menu-button"
-											tabIndex={
-												-1
-											}
+											tabIndex={-1}
 										>
 											{/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
 											<a
@@ -164,8 +169,7 @@ function Dashboard() {
 												tabindex="-1"
 												id="user-menu-item-0"
 											>
-												Your
-												Profile
+												Your Profile
 											</a>
 
 											<a
@@ -185,8 +189,7 @@ function Dashboard() {
 												tabindex="-1"
 												id="user-menu-item-2"
 											>
-												Sign
-												out
+												Sign out
 											</a>
 										</div>
 									)}
@@ -202,9 +205,7 @@ function Dashboard() {
 								aria-expanded="false"
 							>
 								<span className="sr-only">
-									Open
-									main
-									menu
+									Open main menu
 								</span>
 								{/* <!--
               Heroicon name: outline/menu
@@ -252,10 +253,7 @@ function Dashboard() {
 				</div>
 
 				{/* <!-- Mobile menu, show/hide based on menu state. --> */}
-				<div
-					className="md:hidden"
-					id="mobile-menu"
-				>
+				<div className="md:hidden" id="mobile-menu">
 					<div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
 						{/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
 						<a
@@ -305,8 +303,7 @@ function Dashboard() {
 							</div>
 							<div className="ml-3">
 								<div className="text-base font-medium leading-none text-white">
-									Tom
-									Cook
+									Tom Cook
 								</div>
 								<div className="text-sm font-medium leading-none text-gray-400">
 									tom@example.com
@@ -317,8 +314,7 @@ function Dashboard() {
 								className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 							>
 								<span className="sr-only">
-									View
-									notifications
+									View notifications
 								</span>
 								{/* <!-- Heroicon name: outline/bell --> */}
 								<svg
@@ -343,8 +339,7 @@ function Dashboard() {
 								href="#"
 								className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
 							>
-								Your
-								Profile
+								Your Profile
 							</a>
 
 							<a
@@ -358,8 +353,7 @@ function Dashboard() {
 								href="#"
 								className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
 							>
-								Sign
-								out
+								Sign out
 							</a>
 						</div>
 					</div>
