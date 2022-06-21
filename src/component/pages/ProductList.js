@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 // import { setProducts } from "../../redux/Action/productActions";
 import { setProducts } from "../../redux/actions/productActions";
 // import { addToCart } from "../../redux/actions/cartActions";
-import { addToCart } from "../../redux/actions/productActions";
+import { addToCart } from "../../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import CartDetails from "./CartDetails";
 function ProductList() {
@@ -26,7 +26,7 @@ function ProductList() {
 					`Error in fetchProducts API call with ${err}`,
 				);
 			});
-		console.log("dkkkkk", resp.data);
+
 		dispatch(setProducts(resp.data));
 	};
 

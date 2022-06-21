@@ -8,15 +8,15 @@ function CartDetails() {
 		return state.cart.cart;
 	});
 	console.log("cart", cartData);
-	// let complete;
-	// if (cartData !== undefined) {
-	// 	complete = cartData.map((ar) => ar.price);
-	// }
-	// const sum = complete.reduce(function (sum, number) {
-	// 	const updatedSum = sum + number;
-	// 	return updatedSum;
-	// }, 0);
-	let sum = 0;
+	let complete;
+	if (cartData !== undefined) {
+		complete = cartData.map((ar) => ar.price);
+	}
+	const sum = complete.reduce(function (sum, number) {
+		const updatedSum = sum + number;
+		return updatedSum;
+	}, 0);
+
 	const dispatch = useDispatch(removeFromCart);
 	return (
 		<div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -150,11 +150,13 @@ function CartDetails() {
 
 														<div class="flex">
 															<button
+																id={
+																	singleItem.id
+																}
 																onClick={() =>
 																	dispatch(
 																		removeFromCart(
-																			singleItem,
-																			cartData,
+																			singleItem.id,
 																		),
 																	)
 																}

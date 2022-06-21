@@ -1,5 +1,5 @@
 import { ActionTypes } from "../constants/action-types";
-export const addToCart = ({ data }) => {
+export const addToCart = (data) => {
 	return {
 		type: ActionTypes.ADD_TO_CART,
 		payload: data,
@@ -12,12 +12,9 @@ export const addToCart = ({ data }) => {
 // 	};
 // };
 
-export const removeFromCart = ({ currentData, allData }) => {
-	console.log("kdfkkdfk", currentData, allData);
-	const dd = allData?.filter((ee) => ee.id !== currentData?.id);
-	console.log("kkk", dd);
+export const removeFromCart = (currentData) => {
 	return {
 		type: ActionTypes.REMOVE_FROM_CART,
-		payload: dd,
+		payload: currentData,
 	};
 };

@@ -2,15 +2,31 @@ import React from "react";
 import { useState } from "react";
 import ProductList from "./ProductList";
 // import Product from "./Product";
-import { FaShoppingCart, FaAmazon } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaShoppingCart, FaAmazon, FaBars } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import SidebarFilter from "./SidebarFilter";
+import {
+	searchProduct,
+	sortProduct,
+	sortProduct2,
+} from "../../redux/actions/filterAction";
 
 function Dashboard() {
 	const [open, setOpen] = useState(false);
+	const [sideBar, setSidebar] = useState(false);
 	const cart = useSelector((state) => {
-		return state.cart.cart;
+		console.log("state", state);
+		return state.allProducts.products;
 	});
+
+	const cart2 = useSelector((state) => {
+		return state?.cart;
+	});
+
+	const searchedItems = useDispatch(searchProduct);
+	const short = useDispatch(sortProduct);
+	const short2 = useDispatch(sortProduct2);
 	return (
 		//  <!-- This example requires Tailwind CSS v2.0+ -->
 		// <!--
@@ -46,39 +62,32 @@ function Dashboard() {
 										className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
 										aria-current="page"
 									>
-										Dashboard
+										Select
+										<br />
+										Your Address
 									</a>
 									{/* <Product /> */}
-									<a
-										href="#"
-										className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									>
-										Team
-									</a>
-
-									<a
-										href="#"
-										className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									>
-										Projects
-									</a>
-
-									<a
-										href="#"
-										className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									>
-										Calendar
-									</a>
-
-									<a
-										href="#"
-										className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									>
-										Reports
-									</a>
 								</div>
 							</div>
+							{/* Search bar */}
+							<div>
+								<input
+									className="px-4  py-2 rounded-lg w-full ml-10 text-center"
+									type="text"
+									onChange={async (e) =>
+										searchedItems(
+											searchProduct({
+												current: e.target
+													.value,
+												allData: cart,
+											}),
+										)
+									}
+									placeholder="Search Your Product Here"
+								/>
+							</div>
 						</div>
+
 						<div className="hidden md:block">
 							<div className="ml-4 flex items-center md:ml-6">
 								<button
@@ -97,9 +106,10 @@ function Dashboard() {
 											/>
 										</Link>
 										<span className="inline-flex absolute bottom-4 items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-											{cart !== undefined
-												? cart.length
-												: 0}
+											{cart2.cart.length !==
+											undefined
+												? cart2.cart.length
+												: "0"}
 										</span>
 									</div>
 									{/* <svg
@@ -361,6 +371,54 @@ function Dashboard() {
 			</nav>
 
 			<header className="bg-white shadow">
+				<div className="">
+					<ul className="flex gap-3">
+						<li>
+							<FaBars
+								className="text-black cursor-pointer"
+								onClick={() => setSidebar(!sideBar)}
+							/>
+						</li>
+						<li>
+							<div class="flex items-center mb-4">
+								<input
+									onClick={() =>
+										short(sortProduct(cart))
+									}
+									id="default-checkbox"
+									type="checkbox"
+									value=""
+									className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									for="default-checkbox"
+									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+								>
+									Price High to Low
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="flex items-center mb-4">
+								<input
+									onClick={() =>
+										short(sortProduct2(cart))
+									}
+									id="default-checkbox"
+									type="checkbox"
+									value=""
+									className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									for="default-checkbox"
+									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+								>
+									Price Low to High
+								</label>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 					<h1 className="text-3xl font-bold text-gray-900">
 						Dashboard
