@@ -4,7 +4,6 @@ const initialState = {
 	cart: [],
 };
 export const cartReducer = (state = initialState, { type, payload }) => {
-	console.log("cart Reducer", payload);
 	switch (type) {
 		case ActionTypes.ADD_TO_CART:
 			let isContains = state.cart.some((eee) => eee.id === payload.id);

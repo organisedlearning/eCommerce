@@ -6,11 +6,12 @@ import { FaShoppingCart, FaAmazon, FaBars } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SidebarFilter from "./SidebarFilter";
+// import { sortProduct, sortProduct2 } from "../../redux/actions/filterAction";
 import {
 	searchProduct,
 	sortProduct,
 	sortProduct2,
-} from "../../redux/actions/filterAction";
+} from "../../redux/actions/productActions";
 
 function Dashboard() {
 	const [open, setOpen] = useState(false);
@@ -79,7 +80,6 @@ function Dashboard() {
 											searchProduct({
 												current: e.target
 													.value,
-												allData: cart,
 											}),
 										)
 									}
@@ -383,7 +383,7 @@ function Dashboard() {
 							<div class="flex items-center mb-4">
 								<input
 									onClick={() =>
-										short(sortProduct(cart))
+										short(sortProduct())
 									}
 									id="default-checkbox"
 									type="checkbox"
@@ -402,7 +402,7 @@ function Dashboard() {
 							<div class="flex items-center mb-4">
 								<input
 									onClick={() =>
-										short(sortProduct2(cart))
+										short(sortProduct2())
 									}
 									id="default-checkbox"
 									type="checkbox"

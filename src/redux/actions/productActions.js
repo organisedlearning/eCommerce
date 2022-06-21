@@ -19,9 +19,25 @@ export const removeSelectedProducts = () => {
 		type: ActionTypes.REMOVE_SELECTED_PRODUCTS,
 	};
 };
-export const addToCart = (data) => {
+export const searchProduct = (data) => {
+	console.log("data", data);
 	return {
-		type: ActionTypes.ADD_TO_CART,
+		type: ActionTypes.SEARCH_ITEMS,
 		payload: data,
+	};
+};
+export const sortProduct2 = (cart) => {
+	return {
+		type: ActionTypes.LOW_TO_HIGH,
+
+		payload: cart,
+	};
+};
+export const sortProduct = (cart) => {
+	console.log("allData", cart);
+	return {
+		type: ActionTypes.HIGH_TO_LOW,
+
+		payload: cart,
 	};
 };
