@@ -41,3 +41,19 @@ export const sortProduct = (cart) => {
 		payload: cart,
 	};
 };
+export const searchShirt = () => {
+	return {
+		type: ActionTypes.SEARCH_SHIRT,
+	};
+};
+export const searchHeadphone = () => {
+	console.log("headphone");
+	return {
+		type: ActionTypes.SEARCH_HEADPHONE,
+	};
+};
+export const searchShoe = () => {
+	return {
+		type: ActionTypes.SEARCH_SHOE,
+	};
+};

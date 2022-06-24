@@ -25,6 +25,11 @@ export const productReducer = (state = initialState, { type, payload }) => {
 				return a.price - b.price;
 			});
 			return { ...state, products: [...AA] };
+		case ActionTypes.SEARCH_HEADPHONE:
+			let headphone = state.products.filter((current) => {
+				return current.title == "headphones";
+			});
+			return { ...state, products: [...headphone] };
 
 		default:
 			return state;
@@ -66,6 +71,7 @@ export const FilteredReducer = (state = initialState, { type, payload }) => {
 				return a.price - b.price;
 			});
 			return { ...state, cart: AA };
+
 		default:
 			return state;
 	}

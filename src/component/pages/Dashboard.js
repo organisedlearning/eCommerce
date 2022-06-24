@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import SidebarFilter from "./SidebarFilter";
 // import { sortProduct, sortProduct2 } from "../../redux/actions/filterAction";
 import {
+	searchHeadphone,
 	searchProduct,
 	sortProduct,
 	sortProduct2,
@@ -28,6 +29,7 @@ function Dashboard() {
 	const searchedItems = useDispatch(searchProduct);
 	const short = useDispatch(sortProduct);
 	const short2 = useDispatch(sortProduct2);
+	const headphone = useDispatch(searchHeadphone);
 	return (
 		//  <!-- This example requires Tailwind CSS v2.0+ -->
 		// <!--
@@ -75,14 +77,15 @@ function Dashboard() {
 								<input
 									className="px-4  py-2 rounded-lg w-full ml-10 text-center"
 									type="text"
-									onChange={async (e) =>
+									onChange={(e) => {
+										e.preventDefault();
 										searchedItems(
 											searchProduct({
 												current: e.target
 													.value,
 											}),
-										)
-									}
+										);
+									}}
 									placeholder="Search Your Product Here"
 								/>
 							</div>
@@ -414,6 +417,55 @@ function Dashboard() {
 									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
 								>
 									Price Low to High
+								</label>
+								<input
+									// onClick={() =>
+									// 	short(sortProduct2())
+									// }
+									onClick={() =>
+										headphone(searchHeadphone())
+									}
+									id="default-checkbox"
+									type="checkbox"
+									value=""
+									className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									for="default-checkbox"
+									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+								>
+									headphone
+								</label>
+								<input
+									// onClick={() =>
+									// 	short(sortProduct2())
+									// }
+
+									id="default-checkbox"
+									type="checkbox"
+									value=""
+									className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									for="default-checkbox"
+									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+								>
+									shoe
+								</label>
+								<input
+									onClick={() =>
+										short(sortProduct2())
+									}
+									id="default-checkbox"
+									type="checkbox"
+									value=""
+									className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									for="default-checkbox"
+									class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+								>
+									shirt
 								</label>
 							</div>
 						</li>
