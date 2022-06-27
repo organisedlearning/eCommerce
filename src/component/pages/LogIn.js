@@ -1,17 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { FaAmazon } from "react-icons/fa";
 import { login, logout } from "../../redux/actions/authAction";
+import { useSelector, useDispatch } from "react-redux";
+import ManageToken from "../ManageToken";
 function LogIn() {
-	let details = {};
+	const log = useDispatch(login);
+	const [getToken, setToken] = useState();
+	const [details, setDetails] = useState({
+		email: "",
+		password: "",
+		token: "",
+	});
+	useEffect(async () => {
+		const st = await getToken;
+		// log(login({ ...d
+		// 	token: getToken }));
+		setDetails({ ...details, token: st });
+		log(login({ ...details, token: st?.accessToken }));
+	}, [getToken]);
+
+	async function loginUser(currentUser) {
+		return fetch("http://localhost:8000/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(currentUser),
+		}).then((result) => result.json());
+	}
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const token = await loginUser(details);
+		setToken(token);
+		setDetails({ ...details, token: getToken });
+		// if (getToken !== undefined) {
+		// 	log(login({ token: token }));
+		// }
+	};
+
+	console.log("getToken", getToken);
+	console.log("details", details);
 	return (
 		<div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-			<div className="max-w-md w-full space-y-8">
+			<form
+				className="max-w-md w-full space-y-8"
+				onSubmit={handleSubmit}
+			>
 				<div>
-					{/* <img
-						className="mx-auto h-12 w-auto"
-						src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-						alt="Workflow"
-					/> */}
 					<FaAmazon
 						size={50}
 						className="mx-auto h-12 w-auto text-blue-400"
@@ -30,19 +66,19 @@ function LogIn() {
 						</a>
 					</p>
 				</div>
-				<form className="mt-8 space-y-6" action="#" method="POST">
+				<div className="mt-8 space-y-6" action="#">
 					<input type="hidden" name="remember" value="true" />
-					<div className="rounded-md shadow-sm -space-y-px">
+					<form className="rounded-md shadow-sm -space-y-px">
 						<div className="">
-							<label
-								for="email-address"
-								className="sr-only"
-							>
+							<label className="sr-only">
 								Email address
 							</label>
 							<input
 								onChange={(e) =>
-									console.log(e.target.value)
+									setDetails({
+										...details,
+										email: e.target.value,
+									})
 								}
 								id="email-address"
 								name="email"
@@ -58,7 +94,12 @@ function LogIn() {
 								Password
 							</label>
 							<input
-								id="password"
+								onChange={(e) =>
+									setDetails({
+										...details,
+										password: e.target.value,
+									})
+								}
 								name="password"
 								type="password"
 								autocomplete="current-password"
@@ -67,7 +108,7 @@ function LogIn() {
 								placeholder="Password"
 							/>
 						</div>
-					</div>
+					</form>
 
 					<div className="flex items-center justify-between">
 						<div className="flex items-center">
@@ -99,7 +140,7 @@ function LogIn() {
 
 					<div>
 						<button
-							type="submit"
+							onClick={async () => log(login(details))}
 							className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 						>
 							<span className="absolute left-0 inset-y-0 flex items-center pl-3">
@@ -120,9 +161,37 @@ function LogIn() {
 							Sign in
 						</button>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</div>
+		// <div className="App">
+		// 	<form onSubmit={handleSubmit}>
+		// 		<input
+		// 			onChange={(e) =>
+		// 				setDetails({
+		// 					...details,
+		// 					email: e.target.value,
+		// 				})
+		// 			}
+		// 			type="text"
+		// 			value={details.email}
+		// 			placeholder="Email"
+		// 		/>
+		// 		<input
+		// 			type="text"
+		// 			value={details.password}
+		// 			placeholder="password"
+		// 			onChange={(e) =>
+		// 				setDetails({
+		// 					...details,
+		// 					password: e.target.value,
+		// 				})
+		// 			}
+		// 		/>
+
+		// 		<button type="submit">Log IN</button>
+		// 	</form>
+		// </div>
 	);
 }
 
