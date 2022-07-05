@@ -6,6 +6,8 @@ import { FaShoppingCart, FaAmazon, FaBars } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SidebarFilter from "./SidebarFilter";
+import Crousel from "./Crousel";
+import Filter from "./Filter";
 // import { sortProduct, sortProduct2 } from "../../redux/actions/filterAction";
 import {
 	searchHeadphone,
@@ -478,13 +480,15 @@ function Dashboard() {
 				</div>
 			</header>
 			<main>
-				<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-					{/* <!-- Replace with your content --> */}
-					<div className="px-4 py-6 sm:px-0">
-						<div className="border-4 border-dashed border-gray-200 rounded-lg h-96">
-							<ProductList />
-						</div>
+				<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-4 flex ">
+					<div className="w-1/5">
+						<Filter />
 					</div>
+					{/* <!-- Replace with your content --> */}
+					<div className=" sm:px-0 w-4/5">
+						<ProductList />
+					</div>
+
 					{/* <!-- /End replace --> */}
 				</div>
 			</main>
